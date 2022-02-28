@@ -27,6 +27,7 @@ export class CreateBoard {
         // console.log(checkPosition.length, rowIndex, colIndex);
       });
     });
+    console.log(this.board);
     return putList;
   }
 
@@ -51,6 +52,7 @@ export class CreateBoard {
     for (let i = 0, l = willBeReturned.length; i < l; i++) {
       this.board[willBeReturned[i][0]][willBeReturned[i][1]] = player;
     }
+    return true;
   }
 
   checkStone(num1, num2, player) {
@@ -69,7 +71,6 @@ export class CreateBoard {
     directions.forEach((el) => {
       crossCheck(this.board, { num1, num2 }, el[0], el[1], player, change);
     });
-
     return change;
   }
 }
