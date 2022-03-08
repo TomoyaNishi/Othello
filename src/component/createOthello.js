@@ -24,10 +24,8 @@ export class CreateBoard {
           return;
         }
         putList.push([rowIndex, colIndex]);
-        // console.log(checkPosition.length, rowIndex, colIndex);
       });
     });
-    console.log(this.board);
     return putList;
   }
 
