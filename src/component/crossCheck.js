@@ -39,8 +39,8 @@ export const crossCheck = (
         isNextNull:
           board[currentPosition.num1 + _yAxis][currentPosition.num2 + _xAxis] ==
           null,
-        arg1: currentPosition.num1 + _yAxis,
-        arg2: currentPosition.num2 + _xAxis,
+        nextY: currentPosition.num1 + _yAxis,
+        nextX: currentPosition.num2 + _xAxis,
         player,
       });
     }
