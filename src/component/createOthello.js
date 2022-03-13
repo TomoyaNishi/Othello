@@ -16,35 +16,36 @@ export class CreateBoard {
 
   putPosition(player) {
     const putList = [];
-    this.board.forEach((row, rowIndex) => {
-      row.forEach((el, colIndex) => {
-        const checkPosition = this.checkStone(rowIndex, colIndex, player);
+    this.board.forEach((colItem, colIndex) => {
+      colItem.forEach((el, rowIndex) => {
+        const checkPosition = this.checkStone(colIndex, rowIndex, player);
 
         if (checkPosition.length === 0) {
           return;
         }
-        putList.push([rowIndex, colIndex]);
+
+        putList.push([colIndex, rowIndex]);
       });
     });
     return putList;
   }
 
-  putStone(num1, num2, player) {
+  putStone(yIndex, xIndex, player) {
     // 被っていないか
-    if (this.board[num1][num2]) {
+    if (this.board[yIndex][xIndex]) {
       console.log("すでに石が置いてあります");
       return;
     }
 
     //判定
-    const willBeReturned = this.checkStone(num1, num2, player);
+    const willBeReturned = this.checkStone(yIndex, xIndex, player);
     if (willBeReturned.length === 0) {
       console.log("石を置けません");
       return;
     }
 
     // 問題なければ石を置く
-    this.board[num1][num2] = player;
+    this.board[yIndex][xIndex] = player;
 
     // 置いた石との間にある石を返す
     for (let i = 0, l = willBeReturned.length; i < l; i++) {
@@ -53,7 +54,7 @@ export class CreateBoard {
     return true;
   }
 
-  checkStone(num1, num2, player) {
+  checkStone(yIndex, xIndex, player) {
     const change = [];
     const directions = [
       [0, 1], // 右
@@ -67,7 +68,7 @@ export class CreateBoard {
     ];
 
     directions.forEach((el) => {
-      crossCheck(this.board, { num1, num2 }, el[0], el[1], player, change);
+      crossCheck(this.board, { yIndex, xIndex }, el[0], el[1], player, change);
     });
     return change;
   }

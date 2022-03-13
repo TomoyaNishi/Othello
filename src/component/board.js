@@ -26,7 +26,6 @@ export const Board = () => {
 
     player === "x" ? setPlayer("o") : setPlayer("x");
   }
-
   return (
     <div className="board">
       {rowArr.map((index) => {
