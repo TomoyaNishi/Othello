@@ -55,7 +55,6 @@ export class CreateBoard {
   }
 
   checkStone(yIndex, xIndex, player) {
-    const change = [];
     const directions = [
       [0, 1], // 右
       [0, -1], // 左
@@ -67,8 +66,17 @@ export class CreateBoard {
       [1, -1], // 右下
     ];
 
+    const total = [];
+    const change = [];
     directions.forEach((el) => {
-      crossCheck(this.board, { yIndex, xIndex }, el[0], el[1], player, change);
+      const result = crossCheck(
+        this.board,
+        { yIndex, xIndex },
+        el[0],
+        el[1],
+        player
+      );
+      change.push(...result);
     });
     return change;
   }
