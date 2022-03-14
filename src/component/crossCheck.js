@@ -34,25 +34,15 @@ export const crossCheck = (
         currentPosition.xIndex + _xAxis
       ] === player
     ) {
-      return;
+      break;
     }
-
-    // console.log({
-    //   _y: currentPosition.yIndex,
-    //   _x: currentPosition.xIndex,
-    //   change,
-    //   yAxis,
-    //   xAxis,
-    //   _yAxis,
-    //   _xAxis,
-    // });
 
     if (
       board[currentPosition.yIndex + _yAxis][currentPosition.xIndex + _xAxis] ==
       null
     ) {
       change.splice(0);
-      return;
+      break;
     }
 
     // 置いた時に返る石を追加
@@ -75,10 +65,9 @@ export const crossCheck = (
     if (
       board.length <= currentPosition.yIndex + _yAxis ||
       currentPosition.yIndex + _yAxis <= 0 ||
-      board.length <= currentPosition.xIndex + _xAxis ||
-      currentPosition.xIndex + _xAxis <= 0
+      board.length <= currentPosition.xIndex + _xAxis
     ) {
-      return;
+      break;
     }
     // console.log(change);
   }
