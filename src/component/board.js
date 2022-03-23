@@ -14,6 +14,10 @@ export const Board = () => {
   // 石が置ける場所をチェックする
   const putPositionArr = othello.putPosition(player);
 
+  const flatOthelloBoard = othelloBoard.flat(2);
+  let playerLength = flatOthelloBoard.filter((n) => n === player).length;
+  let opponentLength = flatOthelloBoard.filter((n) => n === opponent).length;
+
   function clickSquare(row, index) {
     const isPut = othello.putStone(row, index, player);
 
@@ -34,7 +38,7 @@ export const Board = () => {
   }
 
   return (
-    <div>
+    <div className="container">
       <div className="board">
         {rowArr.map((index) => {
           return (
@@ -49,7 +53,11 @@ export const Board = () => {
           );
         })}
       </div>
-      <p>player : x</p>
+      <div className="othello-state">
+        <p>player : x</p>
+        <p>player length : {playerLength}</p>
+        <p>opponent length : {opponentLength}</p>
+      </div>
     </div>
   );
 };

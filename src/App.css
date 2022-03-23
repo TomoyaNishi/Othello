@@ -2,9 +2,13 @@
   text-align: center;
 }
 
-.board {
+.container {
   margin: 30px auto;
   width: 360px;
+}
+
+.board {
+  width: 100%;
 }
 
 .row {
@@ -37,4 +41,7 @@
   width: 100%;
   height: 80%;
   border-radius: 50%;
+}
+.othello-state {
+  text-align: left;
 }
