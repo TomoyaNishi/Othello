@@ -6,10 +6,10 @@ export const othello = new CreateBoard();
 
 export const Board = () => {
   const [othelloBoard, setOthelloBoard] = useState(othello.board);
-  const [player, setPlayer] = useState("x");
+  // const [player, setPlayer] = useState("x");
   const rowArr = [0, 1, 2, 3, 4, 5];
-  // const player = "x";
-  // const opponent = "o";
+  const player = "x";
+  const opponent = "o";
 
   // 石が置ける場所をチェックする
   const putPositionArr = othello.putPosition(player);
@@ -24,22 +24,32 @@ export const Board = () => {
       return;
     }
 
-    player === "x" ? setPlayer("o") : setPlayer("x");
+    // 相手の石を自動的に置く
+    const opponentPutPositionArr = othello.putPosition(opponent);
+    const selectPosition = Math.floor(
+      Math.random() * opponentPutPositionArr.length
+    );
+    const opponentPut = opponentPutPositionArr[selectPosition];
+    othello.putStone(opponentPut[0], opponentPut[1], opponent);
   }
+
   return (
-    <div className="board">
-      {rowArr.map((index) => {
-        return (
-          <Row
-            key={index}
-            array={rowArr}
-            board={othelloBoard}
-            row={rowArr[index]}
-            isPutStone={putPositionArr}
-            onClick={clickSquare}
-          />
-        );
-      })}
+    <div>
+      <div className="board">
+        {rowArr.map((index) => {
+          return (
+            <Row
+              key={index}
+              array={rowArr}
+              board={othelloBoard}
+              row={rowArr[index]}
+              isPutStone={putPositionArr}
+              onClick={clickSquare}
+            />
+          );
+        })}
+      </div>
+      <p>player : x</p>
     </div>
   );
 };
