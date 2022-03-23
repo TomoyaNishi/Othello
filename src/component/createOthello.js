@@ -81,18 +81,3 @@ export class CreateBoard {
     return change;
   }
 }
-//
-//   function playGame() {
-//     const othelloBoard = new Board();
-//     const player = "x";
-//     const opponent = "o";
-//
-//     // 石が置ける場所をチェックする
-//     const putPositionArr = othelloBoard.putPosition(player);
-//     console.log(putPositionArr);
-//
-//     othelloBoard.putStone(2, 1, player);
-//     console.log(othelloBoard.board);
-//   }
-//
-//   playGame();
