@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Row } from "./row";
 import { CreateBoard } from "./createOthello";
+import { Result } from "../utils/result";
 
 export const othello = new CreateBoard();
 
@@ -44,6 +45,8 @@ export const Board = () => {
 
     putOpponent();
   }
+  // 結果の判定
+  let result = Result(playerLength, opponentLength);
 
   return (
     <div className="container">
@@ -65,6 +68,7 @@ export const Board = () => {
         <p>player : black</p>
         <p>player length : {playerLength}</p>
         <p>opponent length : {opponentLength}</p>
+        {putPositionArr.length === 0 ? <p>result : {result}</p> : null}
       </div>
     </div>
   );
