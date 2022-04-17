@@ -3,10 +3,10 @@ import { Row } from "./row";
 import { CreateBoard } from "./createOthello";
 import { Result } from "../utils/result";
 
-export const othello = new CreateBoard();
-
+const othello = new CreateBoard();
 export const Board = () => {
   const [othelloBoard, setOthelloBoard] = useState(othello.board);
+  const [isDisabled, setIsDisabled] = useState(false);
   const rowArr = [0, 1, 2, 3, 4, 5];
   const player = "x";
   const opponent = "o";
@@ -14,26 +14,20 @@ export const Board = () => {
   // 石が置ける場所をチェックする
   const putPositionArr = othello.putPosition(player);
 
-  // 相手の石を自動的に置く関数
-  function putOpponent() {
-    setTimeout(function () {
-      const opponentPutPositionArr = othello.putPosition(opponent);
-      const selectPosition = Math.floor(
-        Math.random() * opponentPutPositionArr.length
-      );
-      const opponentPut = opponentPutPositionArr[selectPosition];
-
-      othello.putStone(opponentPut[0], opponentPut[1], opponent);
-      const newArray = [...othelloBoard];
-      setOthelloBoard(newArray);
-    }, 1000);
+  // 1000ms待つ処理
+  function wait() {
+    return new Promise((resolve) => {
+      setTimeout(function () {
+        resolve();
+      }, 1000);
+    });
   }
 
   const flatOthelloBoard = othelloBoard.flat(2);
   let playerLength = flatOthelloBoard.filter((n) => n === player).length;
   let opponentLength = flatOthelloBoard.filter((n) => n === opponent).length;
 
-  function clickSquare(row, index) {
+  async function clickSquare(row, index) {
     const isPut = othello.putStone(row, index, player);
 
     const newArray = [...othelloBoard];
@@ -42,8 +36,21 @@ export const Board = () => {
     if (!isPut) {
       return;
     }
+    setIsDisabled(true);
 
-    putOpponent();
+    await wait();
+
+    // 相手の石を置く
+    const opponentPutPositionArr = othello.putPosition(opponent);
+    const selectPosition = Math.floor(
+      Math.random() * opponentPutPositionArr.length
+    );
+    const opponentPut = opponentPutPositionArr[selectPosition];
+
+    setIsDisabled(false);
+    othello.putStone(opponentPut[0], opponentPut[1], opponent);
+    const _newArray = [...othelloBoard];
+    setOthelloBoard(_newArray);
   }
   // 結果の判定
   let result = Result(playerLength, opponentLength);
@@ -60,15 +67,23 @@ export const Board = () => {
               row={rowArr[index]}
               isPutStone={putPositionArr}
               onClick={clickSquare}
+              disabled={isDisabled}
             />
           );
         })}
       </div>
       <div className="othello-state">
-        <p>player : black</p>
-        <p>player length : {playerLength}</p>
-        <p>opponent length : {opponentLength}</p>
-        {putPositionArr.length === 0 ? <p>result : {result}</p> : null}
+        <div className="result-state">
+          <p className="player-icon"></p>
+          <p>{playerLength}</p>
+        </div>
+        <div className="result-state">
+          <p className="opponent-icon"></p>
+          <p>{opponentLength}</p>
+        </div>
+        {putPositionArr.length === 0 ? (
+          <p className="result">your{result}️</p>
+        ) : null}
       </div>
     </div>
   );

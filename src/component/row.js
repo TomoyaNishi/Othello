@@ -1,6 +1,6 @@
 import { Square } from "./square";
 
-export const Row = ({ array, board, row, isPutStone, onClick }) => {
+export const Row = ({ array, board, row, isPutStone, onClick, disabled }) => {
   return (
     <div className="row">
       {array.map((index) => {
@@ -18,6 +18,7 @@ export const Row = ({ array, board, row, isPutStone, onClick }) => {
             isPutStone={isPut}
             putPosition={[row, index]}
             onClick={() => onClick(row, index)}
+            disabled={disabled}
           />
         );
       })}

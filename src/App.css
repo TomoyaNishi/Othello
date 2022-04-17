@@ -47,4 +47,32 @@
 }
 .othello-state {
   text-align: left;
+  display: flex;
+  background-color: darkgray;
+  margin-top: 24px;
+  padding: 8px 16px;
+  font-size: 24px;
+}
+.result-state {
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+}
+.player-icon {
+  background-color: black;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.opponent-icon {
+  background-color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.result {
+  text-align: left;
+  font-size: 24px;
 }
