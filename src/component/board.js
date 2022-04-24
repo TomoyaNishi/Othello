@@ -42,13 +42,12 @@ export const Board = () => {
 
     // 相手の石を置く
     const opponentPutPositionArr = othello.putPosition(opponent);
-    const selectPosition = Math.floor(
-      Math.random() * opponentPutPositionArr.length
-    );
-    const opponentPut = opponentPutPositionArr[selectPosition];
+
+    //置く場所の判定
+    const selectPutArr = othello.selectPutPosition(opponent);
 
     setIsDisabled(false);
-    othello.putStone(opponentPut[0], opponentPut[1], opponent);
+    othello.putStone(selectPutArr[0], selectPutArr[1], opponent);
     const _newArray = [...othelloBoard];
     setOthelloBoard(_newArray);
   }
