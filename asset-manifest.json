@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/React-Othello/static/css/main.3e677fbe.css",
-    "main.js": "/React-Othello/static/js/main.d4cb8bc3.js",
+    "main.css": "/React-Othello/static/css/main.6665d5fe.css",
+    "main.js": "/React-Othello/static/js/main.6c344bc6.js",
     "static/js/787.33862e4f.chunk.js": "/React-Othello/static/js/787.33862e4f.chunk.js",
     "static/media/logo.svg": "/React-Othello/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/React-Othello/index.html",
-    "main.3e677fbe.css.map": "/React-Othello/static/css/main.3e677fbe.css.map",
-    "main.d4cb8bc3.js.map": "/React-Othello/static/js/main.d4cb8bc3.js.map",
+    "main.6665d5fe.css.map": "/React-Othello/static/css/main.6665d5fe.css.map",
+    "main.6c344bc6.js.map": "/React-Othello/static/js/main.6c344bc6.js.map",
     "787.33862e4f.chunk.js.map": "/React-Othello/static/js/787.33862e4f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3e677fbe.css",
-    "static/js/main.d4cb8bc3.js"
+    "static/css/main.6665d5fe.css",
+    "static/js/main.6c344bc6.js"
   ]
 }
