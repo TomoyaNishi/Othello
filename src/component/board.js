@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Row } from "./row";
 import { CreateBoard } from "./createOthello";
 import { Result } from "../utils/result";
+import { opponentSelect } from "../utils/opponentSelect";
+import { selectPosition } from "../utils/SelectPosition";
 
 const othello = new CreateBoard();
 export const Board = () => {
@@ -40,14 +42,19 @@ export const Board = () => {
 
     await wait();
 
-    // 相手の石を置く
-    const opponentPutPositionArr = othello.putPosition(opponent);
+    const opponentPutArr = othello.putPosition(opponent);
 
-    //置く場所の判定
-    const selectPutArr = othello.selectPutPosition(opponent);
+    const putPosition = opponentSelect(opponent, opponentPutArr);
+
+    const select = selectPosition(
+      putPosition,
+      opponent,
+      othello.checkStone,
+      othello.board
+    );
 
     setIsDisabled(false);
-    othello.putStone(selectPutArr[0], selectPutArr[1], opponent);
+    othello.putStone(select[0], select[1], opponent);
     const _newArray = [...othelloBoard];
     setOthelloBoard(_newArray);
   }

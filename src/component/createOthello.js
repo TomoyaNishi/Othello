@@ -1,18 +1,5 @@
 import { crossCheck } from "./crossCheck";
 
-function example(putArr, checkPosition, i) {
-  let _returnLength = 0;
-  let opponentPutItem;
-
-  if (checkPosition.length > _returnLength) {
-    _returnLength = checkPosition.length;
-    opponentPutItem = [[putArr[i][0], putArr[i][1]]];
-  }
-  console.log(opponentPutItem, _returnLength);
-
-  return opponentPutItem;
-}
-
 export class CreateBoard {
   constructor() {
     this.board = Array.from(new Array(6), () =>
@@ -43,106 +30,6 @@ export class CreateBoard {
     return putList;
   }
 
-  selectPutPosition(opponent) {
-    const opponentPutArr = this.putPosition(opponent);
-    const angle = [
-      [0, 0],
-      [0, 5],
-      [5, 0],
-      [5, 5],
-    ];
-
-    const angleAdjacent = [
-      [0, 1],
-      [1, 0],
-      [1, 1],
-      [0, 4],
-      [1, 4],
-      [1, 5],
-      [4, 0],
-      [4, 1],
-      [5, 1],
-      [4, 4],
-      [4, 5],
-      [5, 5],
-    ];
-
-    const arrPosition = [];
-    let _returnLength = 0;
-    let opponentPutItem;
-
-    // 角に石があったら
-    angle.forEach((el) => {
-      for (let i = 0; i < opponentPutArr.length; i++) {
-        if (el.toString() === opponentPutArr[i].toString()) {
-          arrPosition.push(el);
-        }
-      }
-    });
-
-    if (arrPosition.length !== 0) {
-      for (let i = 0; i < arrPosition.length; i++) {
-        const checkPosition = this.checkStone(
-          arrPosition[i][0],
-          arrPosition[i][1],
-          opponent
-        );
-
-        if (checkPosition.length > _returnLength) {
-          _returnLength = checkPosition.length;
-          opponentPutItem = [arrPosition[i][0], arrPosition[i][1]];
-        }
-        // console.log(opponentPutItem, _returnLength);
-      }
-      return opponentPutItem;
-    }
-
-    // できるだけ角に置かれないように
-    angleAdjacent.forEach((el) => {
-      for (let i = 0; i < opponentPutArr.length; i++) {
-        if (el.toString() !== opponentPutArr[i].toString()) {
-          arrPosition.push(opponentPutArr[i]);
-        }
-      }
-    });
-
-    const setPutPosition = new Set(arrPosition);
-    const setPutPositionArr = Array.from(setPutPosition);
-
-    if (setPutPositionArr.length !== 0) {
-      for (let i = 0; i < setPutPositionArr.length; i++) {
-        const checkPosition = this.checkStone(
-          setPutPositionArr[i][0],
-          setPutPositionArr[i][1],
-          opponent
-        );
-
-        if (checkPosition.length > _returnLength) {
-          _returnLength = checkPosition.length;
-          opponentPutItem = [setPutPositionArr[i][0], setPutPositionArr[i][1]];
-        }
-        // console.log(opponentPutItem, _returnLength);
-      }
-      return opponentPutItem;
-    }
-
-    // そのほかの石
-    for (let i = 0; i < arrPosition.length; i++) {
-      const checkPosition = this.checkStone(
-        arrPosition[i][0],
-        arrPosition[i][1],
-        opponent
-      );
-
-      if (checkPosition.length > _returnLength) {
-        _returnLength = checkPosition.length;
-        opponentPutItem = [arrPosition[i][0], arrPosition[i][1]];
-      }
-      // console.log(opponentPutItem, _returnLength);
-    }
-    return opponentPutItem;
-  }
-
   putStone(yIndex, xIndex, player) {
     // 被っていないか
     if (this.board[yIndex][xIndex]) {
@@ -167,7 +54,7 @@ export class CreateBoard {
     return true;
   }
 
-  checkStone(yIndex, xIndex, player) {
+  checkStone(yIndex, xIndex, player, board = this.board) {
     const directions = [
       [0, 1], // 右
       [0, -1], // 左
@@ -182,7 +69,7 @@ export class CreateBoard {
     const change = [];
     directions.forEach((el) => {
       const result = crossCheck(
-        this.board,
+        board,
         { yIndex, xIndex },
         el[0],
         el[1],
