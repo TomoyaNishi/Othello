@@ -45,6 +45,7 @@ export const Board = () => {
     const opponentPutArr = othello.putPosition(opponent);
 
     const putPosition = opponentSelect(opponent, opponentPutArr);
+    console.log(putPosition);
 
     const select = selectPosition(
       putPosition,

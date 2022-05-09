@@ -22,46 +22,59 @@ const angleAdjacent = [
 
 // 一致した時
 function someElement(arr, opponentPutArr) {
-  return checkPosition(arr, opponentPutArr, true);
+  return check(arr, opponentPutArr, true);
 }
 
 // 一致していない時
 function differentElement(arr, opponentPutArr) {
-  return checkPosition(arr, opponentPutArr, false);
+  return check(arr, opponentPutArr, false);
 }
 
+// [[1, 0], [2, 0], [3, 0]]
+// [[2, 0], [3, 0], [4, 0]]
+// some [[2, 0], [3, 0]]
+// diff [[2, 0], [3, 0], [4, 0]]
+
+// [[1, 0], [2, 0], [3, 0]]
+// [[1, 1], [1, 3], [3, 1]]
+// diff [[1, 1], [1, 3], [3, 1]]
+
 // 石が置ける場所をチェック
-function checkPosition(positionArr, opponentPutArr, match) {
-  const _result = [];
-  positionArr.forEach((el) => {
-    for (let i = 0; i < opponentPutArr.length; i++) {
-      const a = el.toString() === opponentPutArr[i].toString();
-      console.log(a, opponentPutArr[i]);
-      if (a === match) {
-        console.log(opponentPutArr[i].toString());
-        _result.push(opponentPutArr[i]);
+function check(positionArr, opponentPutArr, match) {
+  let _result = [];
+
+  // 一致したもの配列に入れる
+  let matchArr = [];
+  opponentPutArr.forEach((el) => {
+    for (let i = 0; i < positionArr.length; i++) {
+      const a = el.toString() === positionArr[i].toString();
+      if (a) {
+        matchArr.push(el);
       }
     }
   });
 
-  const _putArr = _result.filter((x, i, self) => {
-    return self.indexOf(x) === i && i !== self.lastIndexOf(x);
-  });
+  // matchによって処理を分ける
+  if (match) {
+    _result = matchArr;
+  } else {
+    opponentPutArr.forEach((el) => {
+      const a = matchArr.includes(el);
+      if (!a) {
+        _result.push(el);
+      }
+    });
+  }
 
-  // console.log(_putArr);
-  return _putArr;
+  return _result;
 }
 
 export const opponentSelect = (opponent, opponentPutArr) => {
   const anglePutArr = someElement(angle, opponentPutArr);
-
   if (anglePutArr.length !== 0) {
     return anglePutArr;
   }
-
   const notAngleAdjacent = differentElement(angleAdjacent, opponentPutArr);
-  console.log(opponentPutArr);
-  console.log(notAngleAdjacent);
   if (notAngleAdjacent.length !== 0) {
     return notAngleAdjacent;
   }
