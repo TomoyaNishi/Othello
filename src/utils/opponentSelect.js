@@ -22,12 +22,12 @@ const angleAdjacent = [
 
 // 一致した時
 function someElement(arr, opponentPutArr) {
-  return check(arr, opponentPutArr, true);
+  return core(arr, opponentPutArr, true);
 }
 
 // 一致していない時
 function differentElement(arr, opponentPutArr) {
-  return check(arr, opponentPutArr, false);
+  return core(arr, opponentPutArr, false);
 }
 
 // [[1, 0], [2, 0], [3, 0]]
@@ -40,31 +40,29 @@ function differentElement(arr, opponentPutArr) {
 // diff [[1, 1], [1, 3], [3, 1]]
 
 // 石が置ける場所をチェック
-function check(positionArr, opponentPutArr, match) {
+function core(positionArr, opponentPutArr, match) {
   let _result = [];
 
   // 一致したもの配列に入れる
-  let matchArr = [];
+  const matchArr = [];
   opponentPutArr.forEach((el) => {
-    for (let i = 0; i < positionArr.length; i++) {
-      const a = el.toString() === positionArr[i].toString();
-      if (a) {
+    positionArr.forEach((item) => {
+      const isMatch = el[0] === item[0] && el[1] === item[1];
+
+      if (isMatch) {
         matchArr.push(el);
+      }
+    });
+
+    if (match) {
+      _result = matchArr;
+    } else {
+      const isInclude = matchArr.includes(el);
+      if (!isInclude) {
+        _result.push(el);
       }
     }
   });
-
-  // matchによって処理を分ける
-  if (match) {
-    _result = matchArr;
-  } else {
-    opponentPutArr.forEach((el) => {
-      const a = matchArr.includes(el);
-      if (!a) {
-        _result.push(el);
-      }
-    });
-  }
 
   return _result;
 }
