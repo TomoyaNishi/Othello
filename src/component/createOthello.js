@@ -14,7 +14,7 @@ export class CreateBoard {
     this.board[3][3] = "o";
   }
 
-  putPosition(player) {
+  isPutPosition(player) {
     const putList = [];
     this.board.forEach((colItem, colIndex) => {
       colItem.forEach((el, rowIndex) => {

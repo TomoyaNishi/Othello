@@ -14,7 +14,7 @@ export const Board = () => {
   const opponent = "o";
 
   // 石が置ける場所をチェックする
-  const putPositionArr = othello.putPosition(player);
+  const putPositionArr = othello.isPutPosition(player);
 
   // 1000ms待つ処理
   function wait() {
@@ -42,7 +42,7 @@ export const Board = () => {
 
     await wait();
 
-    const opponentPutArr = othello.putPosition(opponent);
+    const opponentPutArr = othello.isPutPosition(opponent);
 
     const putPosition = opponentSelect(opponent, opponentPutArr);
     console.log(putPosition);
